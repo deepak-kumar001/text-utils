@@ -31,10 +31,6 @@ export default function TextForm(props) {
         }
     };
     const handleSaveTxt = () => {
-        if(text == ""){
-            props.showAlert("There is nothing to save. Please input some text.","warning");
-            return
-        }
         const element = document.createElement('a');
         const file = new Blob([text], { type: 'text/plain' });
         element.href = URL.createObjectURL(file);
@@ -42,6 +38,13 @@ export default function TextForm(props) {
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
+    };
+    const handleCopy = (event) => {
+        // setText("");
+        document.getElementById('exampleFormControlTextarea1').select();
+        navigator.clipboard.writeText(text);
+        props.showAlert("Text Copied to Clipboard.","success")
+
     };
     const handleReset = () => {
         setText("");
