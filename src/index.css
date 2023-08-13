@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.placeholder-light::placeholder {
+  color: #585757;
+}
+
+.placeholder-dark::placeholder {
+  color: rgb(158, 154, 154);
+}

@@ -31,10 +31,10 @@ export default function TextForm(props) {
         }
     };
     const handleSaveTxt = () => {
-        if(text == ""){
-            props.showAlert("There is nothing to save. Please input some text.","warning");
-            return
-        }
+        // if(text === ""){
+        //     props.showAlert("There is nothing to save. Please input some text.","warning");
+        //     return
+        // }
         const element = document.createElement('a');
         const file = new Blob([text], { type: 'text/plain' });
         element.href = URL.createObjectURL(file);
@@ -42,6 +42,13 @@ export default function TextForm(props) {
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
+    };
+    const handleCopy = (event) => {
+        // setText("");
+        document.getElementById('exampleFormControlTextarea1').select();
+        navigator.clipboard.writeText(text);
+        props.showAlert("Text Copied to Clipboard.","success")
+
     };
     const handleReset = () => {
         setText("");
@@ -57,16 +64,18 @@ export default function TextForm(props) {
             <div>
                 <h2 className='mt-3'>{props.heading}</h2>
                 <div className="mb-3">
-                    <textarea className="form-control" style={{backgroundColor:props.mode==='light'?'white':'#4e3939',color:props.mode==='light'?'black':'white'}} placeholder="Enter your text here" placeholderTextColor={props.mode==='dark'?'white':'black'} value={text} onChange={onChangeEvent} id="exampleFormControlTextarea1" rows="8"></textarea>
+                    <textarea className={`form-control ${props.mode === 'light' ? 'placeholder-light' : 'placeholder-dark'}`} style={{backgroundColor:props.mode==='light'?'white':'rgb(45 38 133)',color:props.mode==='light'?'black':'white'}} placeholder="Enter your text here" value={text} onChange={onChangeEvent} id="exampleFormControlTextarea1" rows="8"></textarea>
                 </div>
-                <button className="btn btn-primary mx-1" onClick={handleUpperClick} >Convert To Upper Case</button>
-                <button className="btn btn-primary mx-1" onClick={handleLowerClick} >Convert To Lower Case</button>
-                <button className="btn btn-primary mx-1" onClick={handleExtractCombo} >Extract Combo</button>
-                <button className="btn btn-primary mx-1" onClick={handleSaveTxt} >Save Txt</button>
-                <button className="btn btn-primary mx-1" onClick={handleReset} >Reset</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleUpperClick} >Convert To Upper Case</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleLowerClick} >Convert To Lower Case</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleExtractCombo} >Extract Combo</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleCopy} >Copy to Clipboard</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleSaveTxt} >Save Txt</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleReset} >Reset</button>
             </div>
             <h2 className='mt-2'>Text Summary</h2>
-            <p>{text.length>0?text.trim().split(/\s+|\n+/).length:0} words, {text.length} characters</p>
+            {/* <p>{text.length>0?text.trim().split(/\s+|\n+/).length:0} words, {text.length} characters</p> */}
+            <p>{text.split(/\s+|\n+/).filter(element=>{return element.length !==0}).length} words, {text.length} characters</p>
         </>
     )
 }

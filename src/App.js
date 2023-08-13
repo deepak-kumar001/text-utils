@@ -3,7 +3,14 @@ import { useState } from 'react';
 import './App.css';
 import Navbar from './Components/Navbar';
 import TextForm from './Components/TextForm';
+import About from './Components/About';
 import Alert from './Components/Alert';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
 let timer;
 function App() {
@@ -36,11 +43,18 @@ function App() {
   }
   return (
     <>
-      <Navbar title="TextUtils" aboutText="About" mode={mode} toggleMode={toggleMode}></Navbar>
-      <Alert alert={alert} />
-      <div className="container">
-        <TextForm heading="Enter the Text below to Analyze" mode={mode} showAlert={showAlert}></TextForm>
-      </div>
+      <Router>
+        <Navbar title="TextUtils" aboutText="About" mode={mode} toggleMode={toggleMode}></Navbar>
+        <Alert alert={alert} />
+        <div className="container">
+          <Routes>
+            <Route exact path="/about" element={<About mode={mode}/>}></Route>
+            <Route exact path="/" element={<TextForm heading="Enter the Text below to Analyze" mode={mode} showAlert={showAlert}></TextForm>}>
+              {/* <Home  /> */}
+            </Route>
+          </Routes>
+        </div>
+      </Router>
     </>
   );
 }

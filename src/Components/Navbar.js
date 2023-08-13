@@ -1,7 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
 
 export default function Navbar(props) {
+  const handleActive = (event) => {
+    // console.log(event.target.classList)
+    Array.from(document.getElementsByClassName("nav-link")).map(element=>{return element.classList.remove("active")});
+    // document.getElementsByClassName("nav-link").forEach(element=>{element.classList.remove("active")});
+    event.target.classList.add("active");
+  }
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme={props.mode}>
       <div className="container-fluid">
@@ -12,15 +19,15 @@ export default function Navbar(props) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">Home</a>
+              <Link onClick={handleActive} className="nav-link active" aria-current="page" to="/">Home</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/">{props.aboutText}</a>
+              <Link onClick={handleActive} className="nav-link" to="/about">{props.aboutText}</Link>
             </li>
           </ul>
           <div className="form-check form-switch">
             <input className="form-check-input" type="checkbox" onClick={props.toggleMode} role="switch" id="flexSwitchCheckDefault"/>
-              <label className={`form-check-label text-${props.mode=='dark'?'light':'dark'}`} htmlFor="flexSwitchCheckDefault">Enable DarkMode</label>
+              <label className={`form-check-label text-${props.mode==='dark'?'light':'dark'}`} htmlFor="flexSwitchCheckDefault">Enable DarkMode</label>
           </div>
           {/* <form className="d-flex" role="search">
             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
