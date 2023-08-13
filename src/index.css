@@ -13,9 +13,9 @@ code {
 }
 
 .placeholder-light::placeholder {
-  color: black;
+  color: #585757;
 }
 
 .placeholder-dark::placeholder {
-  color: white;
+  color: rgb(158, 154, 154);
 }

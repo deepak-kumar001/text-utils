@@ -14,9 +14,9 @@ export default function Navbar(props) {
             <li className="nav-item">
               <a className="nav-link active" aria-current="page" href="/">Home</a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link" href="/">{props.aboutText}</a>
-            </li>
+            </li> */}
           </ul>
           <div className="form-check form-switch">
             <input className="form-check-input" type="checkbox" onClick={props.toggleMode} role="switch" id="flexSwitchCheckDefault"/>
@@ -34,10 +34,10 @@ export default function Navbar(props) {
 
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
-  aboutText: PropTypes.string
+  // aboutText: PropTypes.string
 };
 
 Navbar.defaultProps = {
   title: "Your Title Here",
-  aboutText: "About Us"
+  // aboutText: "About Us" 
 }
